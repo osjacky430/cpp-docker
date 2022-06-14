@@ -1,0 +1,53 @@
+name: Build and publish docker images
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  clang:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [14]
+    env:
+      IMAGE: ghcr.io/osjacky430/clang:${{ matrix.version }}
+    steps:
+      - name: Log-in
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build Docker image
+        run: |
+          docker buildx build --push --build-arg DEBIAN_VERSION=bullseye --build-arg LLVM_VERSION=${{ matrix.version }} \
+          -t $IMAGE -f $GITHUB_WORKSPACE/clang/Dockerfile .
+  gcc:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [12]
+    env:
+      IMAGE: ghcr.io/osjacky430/gcc:${{ matrix.version }}
+    steps:
+      - name: Log-in
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build Docker image
+        run: |
+          docker buildx build --push --build-arg GCC_VERSION=${{ matrix.version }} \
+          -t $IMAGE -f $GITHUB_WORKSPACE/gcc/Dockerfile .
