@@ -12,5 +12,6 @@ RUN apt-get update -qq && \
     rm -rf /var/lib/apt/lists/* && \
     pip3 install conan
 
-ENV CMAKE_GENERATOR Ninja
-ENV CMAKE_LINKER mold
+ENV CC gcc
+ENV CXX g++
+ENV CONAN_CMAKE_GENERATOR Ninja

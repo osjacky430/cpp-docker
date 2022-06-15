@@ -28,6 +28,8 @@ jobs:
         run: |
           docker buildx build --push --build-arg DEBIAN_VERSION=bullseye --build-arg LLVM_VERSION=${{ matrix.version }} \
           -t $IMAGE -f $GITHUB_WORKSPACE/clang/Dockerfile .
+      - name: Test Docker environment
+        run: cat "$GITHUB_WORKSPACE/test/build.sh" | docker run -v "$GITHUB_WORKSPACE/test/:/src" -i $IMAGE /bin/bash
   gcc:
     runs-on: ubuntu-latest
     strategy:
@@ -51,3 +53,5 @@ jobs:
         run: |
           docker buildx build --push --build-arg GCC_VERSION=${{ matrix.version }} \
           -t $IMAGE -f $GITHUB_WORKSPACE/gcc/Dockerfile .
+      - name: Test Docker environment
+        run: cat "$GITHUB_WORKSPACE/test/build.sh" | docker run -v "$GITHUB_WORKSPACE/test/:/src" -i $IMAGE /bin/bash

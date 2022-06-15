@@ -16,5 +16,6 @@ RUN chmod +x install-cmake.sh install-mold.sh install-clang.sh && \
     rm -rf /var/lib/apt/lists/* && \
     pip3 install conan
 
-ENV CMAKE_GENERATOR Ninja
-ENV CMAKE_LINKER mold
+ENV CC clang-${LLVM_VERSION}
+ENV CXX clang++-${LLVM_VERSION}
+ENV CONAN_CMAKE_GENERATOR Ninja

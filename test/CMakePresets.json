@@ -1,0 +1,22 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 21,
+    "patch": 0
+  },
+  "configurePresets": [
+      {
+        "name": "release",
+        "binaryDir": "build",
+        "generator": "Ninja",
+        "cacheVariables": {
+          "CMAKE_LINKER": {
+            "type": "FILEPATH",
+            "value": "/usr/bin/mold"
+          },
+          "CMAKE_BUILD_TYPE": "Release"
+        }
+      }
+  ]
+}
