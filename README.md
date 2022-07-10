@@ -27,6 +27,11 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT ANDROID)
 endif()
 ```
 
+## TODO
+
+1. Including more tools, such as clang-tidy, iwyu, cppcheck (?)
+
+
 ## Reference
 - [foonathan/docker](https://github.com/foonathan/docker)
 - [dockerized cpp build](https://ddanilov.me/dockerized-cpp-build)
