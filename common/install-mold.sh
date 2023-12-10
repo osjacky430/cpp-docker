@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-set -eou pipefail
+set -eoux pipefail
 
-VERSION="1.3.1"
+VERSION="2.4.0"
 MOLD_TAR_NAME="mold-${VERSION}-$(uname -m)-linux"
 MIRROR_URL="https://github.com/rui314/mold/releases/download/v${VERSION}/${MOLD_TAR_NAME}.tar.gz"
 DOWNLOAD_FILE="mold.tar.gz"
